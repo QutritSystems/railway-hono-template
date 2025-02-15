@@ -14,13 +14,49 @@ app.get('/', (c) => {
         <title>Satellite Services</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
-          @keyframes orbit {
+          @keyframes orbit1 {
             from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
             to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
           }
-          .satellite {
-            animation: orbit 20s linear infinite;
+          @keyframes orbit2 {
+            from { transform: rotate(120deg) translateX(150px) rotate(0deg); }
+            to { transform: rotate(480deg) translateX(150px) rotate(-360deg); }
+          }
+          @keyframes orbit3 {
+            from { transform: rotate(240deg) translateX(80px) rotate(0deg); }
+            to { transform: rotate(600deg) translateX(80px) rotate(-360deg); }
+          }
+          @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+          }
+          @keyframes earthRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .satellite-1 {
+            animation: orbit1 20s linear infinite;
             transform-origin: center;
+          }
+          .satellite-2 {
+            animation: orbit2 25s linear infinite;
+            transform-origin: center;
+          }
+          .satellite-3 {
+            animation: orbit3 15s linear infinite;
+            transform-origin: center;
+          }
+          .earth-rotation {
+            animation: earthRotate 60s linear infinite;
+          }
+          .star {
+            animation: twinkle 3s infinite;
+          }
+          .star:nth-child(2n) {
+            animation-delay: 1s;
+          }
+          .star:nth-child(3n) {
+            animation-delay: 2s;
           }
         </style>
       </head>
@@ -29,19 +65,67 @@ app.get('/', (c) => {
           <!-- Space Scene -->
           <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 400 400">
+              <!-- Stars Background -->
+              <g>
+                ${Array.from({length: 50}, (_, i) => `
+                  <circle 
+                    cx="${Math.random() * 400}" 
+                    cy="${Math.random() * 400}" 
+                    r="${Math.random() * 0.5 + 0.5}" 
+                    fill="white" 
+                    class="star"
+                  />
+                `).join('')}
+              </g>
+
               <!-- Earth -->
               <g transform="translate(200, 200)">
-                <circle cx="0" cy="0" r="50" fill="#1E40AF"/>
-                <circle cx="0" cy="0" r="52" fill="none" stroke="#60A5FA" stroke-width="1" opacity="0.3"/>
+                <!-- Base Earth -->
+                <circle cx="0" cy="0" r="50" fill="#1a67c9"/>
+                
+                <!-- Continents -->
+                <g class="earth-rotation">
+                  <!-- North America -->
+                  <path d="M-20,-30 Q-10,-20 -15,-10 T-25,0" fill="#2f855a"/>
+                  <!-- South America -->
+                  <path d="M-15,0 Q-10,10 -15,20" fill="#2f855a"/>
+                  <!-- Europe -->
+                  <path d="M-5,-20 Q5,-15 15,-20" fill="#2f855a"/>
+                  <!-- Africa -->
+                  <path d="M0,-10 Q10,0 0,20" fill="#2f855a"/>
+                  <!-- Asia -->
+                  <path d="M15,-25 Q25,-15 20,0" fill="#2f855a"/>
+                  <!-- Australia -->
+                  <path d="M20,10 Q25,15 30,10" fill="#2f855a"/>
+                </g>
+                
+                <!-- Atmosphere Glow -->
+                <circle cx="0" cy="0" r="52" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.3"/>
+                <circle cx="0" cy="0" r="54" fill="none" stroke="#93c5fd" stroke-width="0.5" opacity="0.2"/>
               </g>
-              
-              <!-- Satellite -->
+
+              <!-- Satellites -->
               <g transform="translate(200, 200)">
-                <g class="satellite">
+                <!-- Communication Satellite -->
+                <g class="satellite-1">
                   <rect x="-15" y="-6" width="30" height="12" fill="#4a5568" rx="2"/>
-                  <rect x="-20" y="-2" width="40" height="4" fill="#2d3748"/>
                   <rect x="-30" y="-8" width="12" height="16" fill="#4299e1"/>
                   <rect x="18" y="-8" width="12" height="16" fill="#4299e1"/>
+                  <circle cx="0" cy="-12" r="4" fill="#e5e7eb"/>
+                </g>
+
+                <!-- Weather Satellite -->
+                <g class="satellite-2">
+                  <rect x="-10" y="-10" width="20" height="20" fill="#4a5568" rx="2"/>
+                  <circle cx="0" cy="0" r="6" fill="#93c5fd"/>
+                  <rect x="-20" y="-2" width="40" height="4" fill="#2d3748"/>
+                </g>
+
+                <!-- GPS Satellite -->
+                <g class="satellite-3">
+                  <rect x="-8" y="-8" width="16" height="16" fill="#4a5568" rx="2"/>
+                  <line x1="-12" y1="0" x2="12" y2="0" stroke="#e5e7eb" stroke-width="2"/>
+                  <line x1="0" y1="-12" x2="0" y2="12" stroke="#e5e7eb" stroke-width="2"/>
                 </g>
               </g>
             </svg>

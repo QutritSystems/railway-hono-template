@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.11.2
     version: 1.11.2
   hono:
-    specifier: ^4.4.4
-    version: 4.4.4
+    specifier: ^4.6.5
+    version: 4.6.5
 
 devDependencies:
   '@types/node':
@@ -285,9 +285,9 @@ packages:
       resolve-pkg-maps: 1.0.0
     dev: true
 
-  /hono@4.4.4:
-    resolution: {integrity: sha512-zO5+4K8yf1iuKhBZhwmpZ/0LzPMr8Zt1RugEGM1xvOqgh9DyLb7tslOtoBks4bmm5bIcLtzLCXUpYpXOkwpABA==}
-    engines: {node: '>=16.0.0'}
+  /hono@4.6.5:
+    resolution: {integrity: sha512-qsmN3V5fgtwdKARGLgwwHvcdLKursMd+YOt69eGpl1dUCJb8mCd7hZfyZnBYjxCegBG7qkJRQRUy2oO25yHcyQ==}
+    engines: {node: '>=16.9.0'}
     dev: false
 
   /resolve-pkg-maps@1.0.0:
